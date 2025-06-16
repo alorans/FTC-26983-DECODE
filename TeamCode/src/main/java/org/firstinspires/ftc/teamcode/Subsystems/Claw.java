@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Claw extends SubsystemBase {
 
-    Servo claw, leftServo, rightServo;
+    Servo claw, leftServo, rightServo; //Servos are small motors that are usually used to power small mechanisms
 
     public Claw(Servo claw_position, Servo leftServo, Servo rightServo){
         this.claw = claw_position;
@@ -19,7 +19,7 @@ public class Claw extends SubsystemBase {
     }
 
     public void open(){
-        claw.setPosition(1);
+        claw.setPosition(1); //Full rotation is 1. 180 degrees is 0.5
 
     }
 

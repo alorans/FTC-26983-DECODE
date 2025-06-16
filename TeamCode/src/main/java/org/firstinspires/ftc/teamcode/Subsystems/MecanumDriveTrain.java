@@ -7,9 +7,9 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 public class MecanumDriveTrain extends SubsystemBase {
 
-    Motor leftFront, rightFront, leftBack, backRight;
+    Motor leftFront, rightFront, leftBack, backRight; //Custom Motor object from FTCLib
     GamepadEx driver;
-    MecanumDrive driveTrain;
+    MecanumDrive driveTrain; //Drivetrain object built-in with FTCLib
 
     public MecanumDriveTrain(Motor leftFront, Motor rightFront,
                              Motor leftBack, Motor backRight, GamepadEx driver){
@@ -23,7 +23,9 @@ public class MecanumDriveTrain extends SubsystemBase {
         driveTrain = new MecanumDrive(leftFront, rightFront, leftBack, backRight);
 
     }
-
+    /*Periodic/loop commands can be used like this:
+    subsystemName.setDefaultCommand(new RunCommand(subsystemName::void, subsystemName))
+     */
     @Override
     public void periodic(){
 
