@@ -6,9 +6,15 @@ This repository contains the public [FTC SDK for the DECODE (2025-2026) competit
 
 ## Installing
 ### Installing Android Studio
+Make sure you have a version of [Android Studio that supports AGP 8.13](https://developer.android.com/studio/releases#android_gradle_plugin_and_android_studio_compatibility).
+
 Follow the official *FTC* instructions here: [Installing Android Studio](https://ftc-docs.firstinspires.org/en/latest/programming_resources/tutorial_specific/android_studio/installing_android_studio/Installing-Android-Studio.html).
 
-**Do not forget to install JDK 17 separately!**
+**There is a possibility that you need to install JDK 17 separately**. Here's how:
+- Go to Android Studio Settings > Build, Execution, Deployment > Build Tools > Gradle
+- In the Gradle JDK dropdown, select `jbr-17`.
+  - If that option is not there, download it from the dropdown.
+- Press Apply/OK and resync Gradle.
 
 ### Downloading the Project
 - Press the green **<> Code** button above.
