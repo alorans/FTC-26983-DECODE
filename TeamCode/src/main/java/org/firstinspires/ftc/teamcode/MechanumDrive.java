@@ -15,12 +15,13 @@ public class MechanumDrive extends OpMode {
     public void move(){
         double vertical = -gamepad1.left_stick_y;
         double horizontal = gamepad1.left_stick_x;
-        double pivot = gamepad1.right_stick_x;
+        double pivot =  gamepad1.right_stick_x;
 
         RF.setPower(pivot + (-vertical + horizontal));
         RB.setPower(pivot + (-vertical - horizontal));
-        LF.setPower(pivot + (-vertical - horizontal));
-        LB.setPower(pivot + (-vertical + horizontal));
+        LF.setPower(-pivot + (-vertical - horizontal));
+        LB.setPower(-pivot + (-vertical + horizontal));
+
     }
 
     @Override
@@ -32,11 +33,12 @@ public class MechanumDrive extends OpMode {
 
         RF.setDirection(DcMotorSimple.Direction.REVERSE);
         RB.setDirection(DcMotorSimple.Direction.REVERSE);
+
     }
 
     @Override
     public void loop(){
-
+        move();
     }
 
 }

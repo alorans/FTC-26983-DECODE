@@ -37,6 +37,7 @@ public class AprilTagLimelight extends OpMode {
             telemetry.addData("Tx", llResult.getTx());
             telemetry.addData("Ty", llResult.getTy());
             telemetry.addData("Ta", llResult.getTa());
+            telemetry.addData("TagID", llResult.getFiducialResults().get(0).getFiducialId());
             telemetry.update();
 
         }
