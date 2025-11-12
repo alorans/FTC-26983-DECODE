@@ -4,13 +4,14 @@ import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
+@TeleOp
 public class AprilTagLimelight extends OpMode {
-
     private Limelight3A limelight;
     private IMU imu;
     @Override
@@ -18,6 +19,7 @@ public class AprilTagLimelight extends OpMode {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.pipelineSwitch(8); //The settings/configs of the limelight, make it so you have pre-determined settings on the limelight
         imu = hardwareMap.get(IMU.class, "imu");
+        start();
         RevHubOrientationOnRobot revHubOrientationOnRobot = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
         imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
@@ -32,14 +34,27 @@ public class AprilTagLimelight extends OpMode {
         YawPitchRollAngles orientation  = imu.getRobotYawPitchRollAngles();
         limelight.updateRobotOrientation(orientation.getYaw());
         LLResult llResult= limelight.getLatestResult();
+        telemetry.addData("null?", llResult==(null));
+        telemetry.addData("Valid?", llResult.isValid());
         if(llResult != null && llResult.isValid()){
             Pose3D botPose = llResult.getBotpose_MT2();
             telemetry.addData("Tx", llResult.getTx());
             telemetry.addData("Ty", llResult.getTy());
             telemetry.addData("Ta", llResult.getTa());
-            telemetry.addData("TagID", llResult.getFiducialResults().get(0).getFiducialId());
-            telemetry.update();
+            try {
+                telemetry.addData("AllianceID", llResult.getFiducialResults().get(0).getFiducialId());
+            }
+            catch (Exception e){
+                telemetry.addData("Error", e);
+            }
+            try {
+                telemetry.addData("CodeID", llResult.getFiducialResults().get(1).getFiducialId());
+            }
+            catch (Exception e){
+                telemetry.addData("Error:", "No second april tag in view");
+            }
 
         }
+        telemetry.update();
     }
 }

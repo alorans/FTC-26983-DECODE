@@ -40,17 +40,6 @@ public class TurnTableTest extends OpMode {
             long start = System.currentTimeMillis();
             table.setPower(0.1);
         }
-//        do {
-//            sortslots.update(telemetry);
-//            int slot = sortslots.getSlot(pattern.substring(slotIndex, slotIndex + 1));
-//            done = goToSlot(slot);
-//            telemetry.addData("Gone to slot?", done);
-//            telemetry.update();
-//            if(!done){
-//                long start = System.currentTimeMillis();
-//                table.setPower(0.1);
-//            }
-//        }while (!done);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {}
@@ -66,22 +55,24 @@ public class TurnTableTest extends OpMode {
         }
         else if(slot == 2){
             table.setPower(power);
-            try {
-                Thread.sleep((long) (duration * 3000));
-            } catch (InterruptedException ignored) {}
+            wait(duration*2);
             table.setPower(0);
         }
         else if(slot == 3){
             table.setPower(power);
-            try {
-                Thread.sleep((long) (duration * 2000));
-            } catch (InterruptedException ignored) {}
+            wait(duration*2);
             table.setPower(0);
         }
         else{
             return false;
         }
         return true;
+    }
+
+
+    public static void wait(double seconds){
+        long start = System.currentTimeMillis();
+        while(System.currentTimeMillis()<start*1000){}
     }
 
 }
