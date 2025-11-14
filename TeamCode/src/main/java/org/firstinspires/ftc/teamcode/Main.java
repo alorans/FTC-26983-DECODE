@@ -31,9 +31,11 @@ public class Main extends OpMode {
 
     String pattern = "PGP";
     boolean sorting = false;
+    Turret turret;
 
     @Override
     public void init() {
+        turret = new Turret(hardwareMap);
         RF = hardwareMap.get(DcMotor.class, "RF");
         LF = hardwareMap.get(DcMotor.class, "LF");
         RB = hardwareMap.get(DcMotor.class, "RB");
