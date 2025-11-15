@@ -59,7 +59,7 @@ public class Main extends OpMode {
     public void loop() {
         move();
         toggleInTake();
-        //       sortslots.update(telemetry);
+        sortslots.update(telemetry);
 
 //        // Toggle sorting mode when Y pressed
 //        if (gamepad1.y && !previousY) {
@@ -81,12 +81,11 @@ public class Main extends OpMode {
         else{ table.setPower(0);}
 //
 //        telemetry.addData("Sorting", sorting);
-//        telemetry.addData("S1", slot1.toString());
-//        telemetry.addData("S2", slot2.toString());
-//        telemetry.addData("S3", slot3.toString());
-//        telemetry.addData("reverse?", reverse);
-//        telemetry.update();
-
+        telemetry.addData("S1", slot1.toString());
+        telemetry.addData("S2", slot2.toString());
+        telemetry.addData("S3", slot3.toString());
+        telemetry.addData("reverse?", reverse);
+        telemetry.update();
         if(gamepad1.y && !previousY) {
             sorting = true;
         }
