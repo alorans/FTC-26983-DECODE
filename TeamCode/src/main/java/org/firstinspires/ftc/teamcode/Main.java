@@ -59,18 +59,18 @@ public class Main extends OpMode {
     public void loop() {
         move();
         toggleInTake();
-        sortslots.update(telemetry);
+        //       sortslots.update(telemetry);
 
-        // Toggle sorting mode when Y pressed
-        if (gamepad1.y && !previousY) {
-            sorting = !sorting;
-        }
-        previousY = gamepad1.y;
-
-        if (sorting) {
-            runSortingSequence();
-            sorting = false; // run once per press
-        }
+//        // Toggle sorting mode when Y pressed
+//        if (gamepad1.y && !previousY) {
+//            sorting = !sorting;
+//        }
+//        previousY = gamepad1.y;
+//
+//        if (sorting) {
+//            runSortingSequence();
+//            sorting = false; // run once per press
+//        }
         if(gamepad1.left_trigger > 0.25 && !prevLT){
             reverse = !reverse;
         }
@@ -79,14 +79,28 @@ public class Main extends OpMode {
             table.setPower(power);
         }
         else{ table.setPower(0);}
+//
+//        telemetry.addData("Sorting", sorting);
+//        telemetry.addData("S1", slot1.toString());
+//        telemetry.addData("S2", slot2.toString());
+//        telemetry.addData("S3", slot3.toString());
+//        telemetry.addData("reverse?", reverse);
+//        telemetry.update();
 
-        telemetry.addData("Sorting", sorting);
-        telemetry.addData("S1", slot1.toString());
-        telemetry.addData("S2", slot2.toString());
-        telemetry.addData("S3", slot3.toString());
-        telemetry.addData("reverse?", reverse);
-        telemetry.update();
+        if(gamepad1.y && !previousY) {
+            sorting = true;
+        }
+        previousY = gamepad1.y;
+        if(sorting){
+            table.setPower(power);
+            long start = System.currentTimeMillis();
+            if(System.currentTimeMillis() > start + (duration * 1000)){
+                table.setPower(0);
+                sorting = false;
+            }
+        }
     }
+
 
     public void move() {
         double vertical = -gamepad1.left_stick_y;
