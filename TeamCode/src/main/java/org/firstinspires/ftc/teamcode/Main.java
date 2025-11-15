@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import java.util.concurrent.TimeUnit;
 
 @TeleOp
 public class Main extends OpMode {
@@ -26,11 +29,14 @@ public class Main extends OpMode {
     slots sortslots = new slots(s1, s2, s3, slot1, slot2, slot3);
 
     static CRServo table;
-    static double duration = 0.5; // base movement time
+    static double duration = 0.15; // base movement time
     static double power = 0.25;
 
     String pattern = "PGP";
     boolean sorting = false;
+
+    ElapsedTime timer;
+
     //Turret turret;
 
     @Override
@@ -49,6 +55,8 @@ public class Main extends OpMode {
         s1.init(hardwareMap, "s1");
         s2.init(hardwareMap, "s2");
         s3.init(hardwareMap, "s3");
+
+        timer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
         sortslots.update(telemetry);
         telemetry.addData("Status", "Initialized");
@@ -92,12 +100,12 @@ public class Main extends OpMode {
         previousY = gamepad1.y;
         if(sorting){
             table.setPower(power);
-            long start = System.currentTimeMillis();
-            if(System.currentTimeMillis() > start + (duration * 1000)){
+            //long start = timer.time(TimeUnit.SECONDS);
+            if(timer.time(TimeUnit.SECONDS) > duration){
                 table.setPower(0);
                 sorting = false;
             }
-        }
+        } else timer.reset();
     }
 
 
