@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.concurrent.TimeUnit;
@@ -26,6 +27,9 @@ public class autontest extends OpMode {
         LF = hardwareMap.get(DcMotor.class, "LF");
         RB = hardwareMap.get(DcMotor.class, "RB");
         LB = hardwareMap.get(DcMotor.class, "LB");
+
+        RF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RB.setDirection(DcMotorSimple.Direction.REVERSE);
         i = 0;
         timer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
@@ -33,18 +37,17 @@ public class autontest extends OpMode {
 
     @Override
     public void loop(){
-        if(timer.time(TimeUnit.SECONDS)> 1){
+        if(timer.time(TimeUnit.SECONDS)> 0.5){
             move(1);
         }
+        else{move(0);}
     }
 
     public void move(double vertical) {
-        double horizontal = gamepad1.left_stick_x;
-        double pivot = gamepad1.right_stick_x;
 
-        RF.setPower(pivot + (vertical + horizontal));
-        RB.setPower(pivot + (vertical - horizontal));
-        LF.setPower(-pivot + (vertical - horizontal));
-        LB.setPower(-pivot + (vertical + horizontal));
+        RF.setPower(vertical);
+        RB.setPower(vertical);
+        LF.setPower(vertical);
+        LB.setPower(vertical);
     }
 }
