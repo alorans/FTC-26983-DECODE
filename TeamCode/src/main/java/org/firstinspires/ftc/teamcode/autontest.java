@@ -19,6 +19,7 @@ public class autontest extends OpMode {
     DcMotor LB;
     int i;
     ElapsedTime timer;
+    int j = 0;
 
 
     @Override
@@ -37,10 +38,14 @@ public class autontest extends OpMode {
 
     @Override
     public void loop(){
-        if(timer.time(TimeUnit.SECONDS)> 0.5){
+        if(j == 0){
+            timer.reset();
+        }
+        if(timer.time(TimeUnit.SECONDS) < 0.5){
             move(1);
         }
         else{move(0);}
+        j++;
     }
 
     public void move(double vertical) {
